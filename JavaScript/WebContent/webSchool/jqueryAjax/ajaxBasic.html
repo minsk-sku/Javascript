@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="/webSchool/Jquery/jquery.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $ajax({
+                url:"../../EmpServlet",
+                type: "get",
+                success:function(result){
+                    console.log(result);
+                    var data=JSON.parse(result);
+                    console.log(data);
+                    var ul=$("<ul>");
+                    for(var i=0;i<data.length;i++){
+                        ul.append($("<li>").text(data[i].firstName));
+                    }
+                    $("#show".html(ul));
+                }
+            })
+        })
+    
+    </script>
+</head>
+<body>
+    <p id="show"></p>
+</body>
+</html>
