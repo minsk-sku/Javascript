@@ -1,41 +1,36 @@
-
 package emp;
 
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.List;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import net.sf.json.JSONArray;
-
-@WebServlet("/webSchool/jqueryAjax/EmpServlet")
-public class EmpServlet extends HttpServlet {
+@WebServlet("/webSchool/jqueryAjax/UpdateEmpServ")
+public class UpdateEmpServ extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	public EmpServlet() {
+	public UpdateEmpServ() {
 		super();
+
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// 한글깨질 때 UTF-8 로 변경.
-		request.setCharacterEncoding("UTF-8");
-		response.setCharacterEncoding("UTF-8");
-
-		PrintWriter out = response.getWriter();
+		String empId = request.getParameter("empId");
+		String salary = request.getParameter("salary");
+		Employee emp = new Employee();
+		emp.setEmployeeId(Integer.parseInt(empId));
+		emp.setSalary(Integer.parseInt(salary));
+		
 		EmpDAO dao = new EmpDAO();
-		List<Employee> list = dao.getEmpList();
-		out.println(JSONArray.fromObject(list));
-
+		dao.updateEmp(emp);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+
 		doGet(request, response);
 	}
 
